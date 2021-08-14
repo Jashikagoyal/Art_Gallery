@@ -1,0 +1,52 @@
+.imag{
+  background: url('images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbar-brand{
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Satisfy', cursive;
+}
+
+/*  */
+.popover{
+  min-width: 80em !important;
+  }
+
+    .modal-body a{
+       font-size: 10px;
+       word-spacing: 1rem;
+     }
+    .modal-header{
+      background-color: #e0e0d1;
+    }
+
+    strong{
+      color: grey;
+    }
+
+    a{
+      color: grey;
+    }
+
+    h4{
+      text-align: left;
+    }
+
+  .footer{
+  background-color: #D1C4E9;
+  margin-left: 80px;
+  margin-right: 80px;
+  padding: 20px 0px 20px 0px;
+  margin-top: 0px;
+}
+
+@media (max-width: 576px) {
+
+  .footer{
+    margin-top: 0px;
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+}

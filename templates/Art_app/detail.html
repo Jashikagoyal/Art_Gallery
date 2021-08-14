@@ -1,0 +1,85 @@
+{% extends 'Art_app/base.html' %}
+
+{% block style %}
+<style>
+  h1{
+    text-align: center;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .flex-container > div {
+    background-color: #f1f1f1;
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+    font-size: 30px;
+  }
+  img{
+    width: 200px;
+    height: 200px;
+    margin: 50px;
+  }
+  .footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #D1C4E9;
+    margin-top: 100px;
+    margin-bottom: -100px;
+    padding: 20px 0px 20px 0px;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 ;
+    transition: 0.3s;
+    width: auto;
+    background-color: white;
+    margin: 20px;
+    overflow: hidden;
+
+    }
+
+    .card:hover {
+    box-shadow: 0 8px 16px 0 ;
+    }
+
+    .container {
+    padding: 2px 16px;
+    }
+    .card-text {
+      word-wrap: break-word;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+      <h1>{{all_art.artist}} - {{all_art.category}}</h1>
+    </div>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-6 offset-sm-2 col-md-6">
+            <img src="{{all_art.Image.url}}" alt="" style="width:70%;height:500px;">
+          </div>
+
+          <div class="col-sm-6" style="margin-top:30px;">
+            <h3 id="namepr{{all_art.id}}">Art Name : {{all_art.Art_Name}}</h3>
+            <h3>Price : <span id="pricepr{{all_art.id}}">{{all_art.price}}</span></h3>
+            <span id="divpr{{all_art.id}}" class="divpr">
+              <button id="pr{{all_art.id}}" class="btn btn-primary cart" > Add To Cart </button>
+            </span>
+            <button class="btn btn-primary" onclick="clearCart()">Clear Cart</button>
+          </div>
+      </div>
+
+    </div>
+
+{% block carousel %}
+{% endblock %}
+
+{% endblock %}

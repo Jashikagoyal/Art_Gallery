@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% block title %}
+        Home
+      {% endblock %}
+    </title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+
+    {% block style %}
+    <style>
+        .imag{
+          background-image: url('{% static "images/background.jpg" %}');
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
+        .navbar-brand{
+          font-family: 'Open Sans', sans-serif;
+          font-family: 'Satisfy', cursive;
+        }
+
+        .popover{
+          min-width: 60em !important;
+          }
+          .modal-header{
+            background-color: #e0e0d1;
+          }
+         .modal-body a{
+            font-size: 10px;
+            margin: 10px;
+          }
+          .modal-footer a{
+            font-size: 10px;
+            padding: 5px;
+            margin:5px;
+          }
+            strong{
+              color: grey;
+            }
+
+            a{
+              color: grey;
+            }
+
+            h4{
+              text-align: left;
+            }
+
+             .footer{
+              position: relative;
+              bottom: 0;
+              width: 100%;
+              background-color: #D1C4E9;
+              margin: 0px auto;
+              margin-top: 20px;
+              padding: 20px 0px 20px 0px;
+            }
+            .flex-container {
+                display: flex;
+                flex-direction: row;
+                background-color: white;
+              }
+              .flex-container > div {
+                background-color: #f1f1f1;
+                width: 200px;
+                margin: 10px;
+                text-align: center;
+                font-size: 30px;
+            }
+
+              .flex-row {
+                display: flex;
+                flex-direction: column;
+              }
+              .flex-row >a{
+                padding: 2px;
+              }
+
+
+    </style>
+
+
+    {% endblock %}
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar" name="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'base' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
+            Home</a>
+        </div>
+
+      <div class="collapse navbar-collapse" id="topNavbar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{% url 'Art_app:index' %}">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;
+              All Arts
+            </a>
+          </li>
+          <li>
+            <a id="target">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;
+              Art categories
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'Art_app:tracker' %}">
+              <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;
+                Tracker
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'Art_app:featured-artist' %}">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+              Featured Artists
+            </a>
+          </li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="{% url 'customerform' %}">
+              <span class="fa fa-user-circle" aria-hidden="true"></span>&nbsp;
+               Customer Account
+            </a>
+          </li>
+                {% if user.is_authenticated %}
+                  <li>
+                    <a href="{% url 'logout' %}">
+                      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+                      Logout</a>
+                  </li>
+                {% else %}
+                  <li>
+                    <a href="{% url 'login' %}">
+                      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+                        Login
+                    </a>
+                  </li>
+                {% endif %}
+                  <li>
+                    <a href="{% url 'about' %}">
+                      <span class="fa fa-user-plus" aria-hidden="true"></span>&nbsp;
+                        Artist Account
+                    </a>
+                  </li>
+
+                <li>
+                  <a href="{% url 'Art_app:cart' %}" id="popcart" class="btn btn-secondary mx-2"data-toggle="popover">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;
+                    Cart(<span id="cart">0</span>)
+                  </a>
+                </li>
+              </ul>
+
+      </div>
+    </div>
+
+    </nav>
+
+    <div class="_content" id='blah'>
+              <div class="modal-header">
+                <h3>Paintings & Artworks</h3>
+              </div>
+              <div class="modal-body">
+                <div class="flex-container">
+                  <div>
+                    <strong><a href="#">Figurative, People, Human Paintings</a></strong>
+                    <br>
+                    <div class="flex-row">
+                      <br>
+                      <a href="#">Couple, Romantic, Love Paintings</a>
+                      <a href="#">Women, Lady, Feminine Paintings</a>
+                      <a href="#">Fashion, Glamour Paintings</a>
+                    </div>
+                  </div>
+                  <div>
+                    <strong><a href="#">Landscape, Seascape & Cityscape Paintings</a></strong>
+                    <div class="flex-row">
+                      <br>
+                      <a href="#">Nature, Forest, Scenery Paintings</a>
+                      <a href="#">Ship, Sea, Beach Paintings</a>
+                      <a href="#">Tree, Botanical Paintings</a>
+                    </div>
+                  </div>
+                  <div>
+                    <strong><a href="#">Indian Paintings</a></strong><br>
+                    <div class="flex-row">
+                      <br>
+                      <br>
+                      <a href="#">Rajasthan, Rajasthani Paintings</a>
+                      <a href="#">Traditional, Ethnic, Folk, Tribal Paintings</a>
+                      <a href="#">Temples, Forts, Monuments Paintings</a>
+                      <a href="#">Rural, Village Paintings</a>
+                      <a href="#">City Painitngs</a>
+                    </div>
+                  </div>
+                  <div>
+                    <strong><a href="#">Animals, Birds,Fishes Paintings</a></strong><br>
+                    <div class="flex-row">
+                      <br>
+                      <a href="#">Horse Paintings</a>
+                      <a href="#">Wildlife Paintings</a>
+                      <a href="#">Birds Paintings</a>
+                      <a href="#">Fishes Painitngs</a>
+                      <a href="#">Dog Painitngs</a>
+                    </div>
+                  </div>
+                  <div>
+                    <strong><a href="#">Religious, God, Goddess Paintings</a></strong><br>
+                    <div class="flex-row">
+                      <br>
+                      <a href="#">Buddha Paintings</a>
+                      <a href="#">Shiva, Mahadev, Parvati Paintings</a>
+                      <a href="#">Krishna, Radha Krishna Paintings</a>
+                      <a href="#">Ganesha, Ganapati Paintings</a>
+                      <a href="#">Jesus Christ, Last Supper, Mother Mary Paintings</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <h4>Other categories</h4>
+                <div class="flex-container">
+                  <div>
+                    <a href="#">Customizable Paintings</a>
+                    <div class="flex-row">
+                      <a href="#">Contemporary & Modern Paintings</a>
+                      <a href="#">Motivational & Inspirational Paintings</a>
+                      <a href="#">Surrealism & Deep Art Paintings</a>
+                    </div>
+                  </div>
+                  <div>
+                    <a href="#">Handmade Paintings</a>
+                    <div class="flex-row">
+                      <a href="#">Digital Canvas Prints</a>
+                      <a href="#">Floral, Flowers Paintings</a>
+                      <a href="#">Still Life Paintings</a>
+                    </div>
+                  </div>
+                  <div>
+                    <a href="#">Multi Piece, Panel, Split Paintings</a>
+                    <div class="flex-row">
+                      <a href="#">Realistic Paintings</a>
+                      <a href="#">Unique,Unusual Paintings</a>
+                      <a href="#">Art With Artist Sign, Certificate</a>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+</div>
+        <!-- navbar end -->
+
+
+
+        <!-- carousel starts -->
+        {% block carousel %}
+        <div class="imag">
+        <div class="container">
+              <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" style="margin-bottom:40px; margin-top:40px;">
+                  <div class="item active">
+                    <img src="{% static 'images/acrylic2.jpg' %}" alt="Los Angeles" style="width:80%; height:550px; max-height:550px; margin:auto;display:block;">
+                  </div>
+
+                  <div class="item">
+                    <img src="{% static 'images/tree.jpeg' %}" alt="Chicago" style="width:80%; height:550px; max-height:550px; margin:auto;display:block;">
+                  </div>
+
+                  <div class="item">
+                    <img src="{% static 'images/couple.jpeg' %}" alt="New york" style="width:80%; height:550px; max-height:550px; margin:auto;display:block;">
+                  </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+        </div>
+      </div>
+        {% endblock %}
+
+
+        {% block body %}
+        {% endblock %}
+
+      <!-- body starts -->
+  {% block footer %}
+
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+             <div class="col-4 offset-1 col-sm-2 col-xs-2">
+                <h5>Info</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Arts</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-7 col-sm-5 col-xs-5">
+                <h5>Our Address</h5>
+                <address>
+              121, Clear Water Bay Road<br>
+              Clear Water Bay, Kowloon<br>
+              HONG KONG<br>
+              <i class="fa fa-phone fa-lg"></i> : +852 1234 5678<br>
+              <i class="fa fa-fax fa-lg"></i> : +852 8765 4321<br>
+              <i class="fa fa-envelope fa-lg"></i> : <a href="mailto:confusion@food.net">confusion@food.net</a>
+           </address>
+            </div>
+            <div class="col-12 col-sm-4 col-xs-4 align-self-center">
+                <div class="text-center">
+                    <a class="btn btn-social-icon btn-google" href="http://google.com/+"> <i class="fa fa-google-plus fa-lg"></i></a>
+                    <a class="btn btn-social-icon btn-facebooke" href="http://www.facebook.com/profile.php?id="> <i class="fa fa-facebook fa-lg"></i></a>
+                    <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/">  <i class="fa fa-linkedin fa-lg"></i></a>
+                    <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/">  <i class="fa fa-twitter fa-lg"></i></a>
+                    <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"> <i class="fa fa-youtube fa-lg"></i></a>
+                    <a class="btn btn-social-icon" href="mailto:"> <i class="fa fa-envelope-o fa-lg"></i></a>
+                </div>
+            </div>
+          </div>
+             <div class="row justify-content-center">
+                  <div class="col-auto">
+                      <p>© Copyright 2018 Ristorante Con Fusion</p>
+                  </div>
+             </div>
+          </div>
+      </footer>
+
+{% endblock %}
+
+
+
+
+
+<script>
+  $(document).ready(function() {
+    $('#blah').hide();
+    $('#target').popover({
+        content: $('#blah'),
+        placement: 'bottom',
+        html: true
+    });
+    $('#target').popover('show');
+    $('#target').popover('hide');
+    $('#blah').show();
+  });
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-migrate-3.3.1.min.js" integrity="sha256-APllMc0V4lf/Rb5Cz4idWUCYlBDG3b0EcN1Ushd3hpE=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+{% block js %}
+  <script>
+  //find out the cart items
+  console.log('working');
+  if(localStorage.getItem('cart') == null){
+    var cart = {};
+  }
+  else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+    updateCart(cart);
+  }
+  // If the add to cart button is clicked , add/increament the items
+    $('.divpr').on('click','button.cart',function(){
+      var idstr = this.id.toString();
+      if (cart[idstr] != undefined){
+        qty =  cart[idstr][0] + 1;
+      }
+      else {
+        qty = 1;
+        name = document.getElementById('name'+idstr).innerHTML;
+        price = document.getElementById('price'+idstr).innerHTML;
+        cart[idstr] = [qty,name,price];
+      }
+      updateCart(cart)
+      console.log(cart[idstr]);
+    });
+    // console.log('clicked');
+    console.log(cart);
+
+
+  // popover to cart
+  $('#popcart').popover('show')
+  document.getElementById("popcart").setAttribute('data-content','<h5>Cart</h5>');
+
+  function updateCart(cart){
+    console.log(cart);
+    var sum = 0;
+    for(var item in cart){
+      sum = sum + cart[item][0];
+      try {      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+} catch (e){};
+
+    }
+    localStorage.setItem('cart',JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = sum;
+    console.log(cart);
+  }
+
+  // if plus or minus button is clicked change the cart as well as display values
+
+  $('.divpr').on("click","button.minus",function(){
+    console.log('minus clicked');
+    a = this.id.slice(7,);
+    console.log(a);
+    cart['pr' + a][0] = cart['pr' + a][0] - 1
+    cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+    document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];
+    updateCart(cart);
+
+  });
+
+  $('.divpr').on("click","button.plus",function(){
+    console.log('plus clicked');
+    a = this.id.slice(6, );
+    cart['pr' + a][0] = cart['pr' + a][0] + 1;
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    updateCart(cart);
+  });
+
+  function clearCart(){
+    cart = JSON.parse(localStorage.getItem('cart'));
+    for(var item in cart){
+      try {document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>';} catch (e){};
+
+    }
+    localStorage.clear();
+    cart = {};
+    updateCart(cart);
+  }
+
+  </script>
+{% endblock %}
+
+
+  </body>
+
+</html>

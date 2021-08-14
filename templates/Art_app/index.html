@@ -1,0 +1,51 @@
+{% extends 'Art_app/base.html' %}
+
+{% block title %}
+  Index
+{% endblock %}
+
+{% block style %}
+  <style>
+    h1{
+      text-align: center;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .flex-container > div {
+      background-color: #f1f1f1;
+      width: 200px;
+      margin: 10px;
+      text-align: center;
+      line-height: 75px;
+      font-size: 30px;
+    }
+
+    img{
+      width: 200px;
+      height: 200px;
+    }
+
+  </style>
+{% endblock %}
+
+
+{% block body %}
+    <h1>Paintings</h1>
+    <div class="row">
+      {% for artist in all_arts %}
+        <div class="col-sm-4 col-lg-3 col-xs-4">
+            {% for art in artist.artistscontent_set.all %}
+              <div class="flex-container" style="padding:20px;">
+                <div>
+                  <a href="{% url 'Art_app:detail' art.id %}"> <img src="{{art.Image.url}}" alt=""> </a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor%}
+      </div>
+{% endblock %}

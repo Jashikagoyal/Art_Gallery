@@ -1,0 +1,97 @@
+{% extends 'Art_app/base.html' %}
+{% block title %}
+  Add a New Artist
+{% endblock %}
+
+
+{% block style %}
+
+<style>
+
+
+.footer{
+ position: relative;
+ bottom: 0;
+ width: 100%;
+ background-color: #D1C4E9;
+ margin: 0px auto;
+ margin-top: 500px;
+ padding: 20px 0px 20px 0px;
+}
+
+.animate
+{
+transition: all 0.1s;
+-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+position: relative;
+padding: 10px 40px;
+margin: 0px 10px 10px 0px;
+float: left;
+border-radius: 10px;
+font-family: 'Pacifico', cursive;
+font-size: 25px;
+color: #FFF;
+text-decoration: none;
+}
+
+.blue
+{
+background-color: #3498DB;
+border-bottom: 5px solid #2980B9;
+text-shadow: 0px -2px #2980B9;
+}
+
+.red
+{
+background-color: #E74C3C;
+border-bottom: 5px solid #BD3E31;
+text-shadow: 0px -2px #BD3E31;
+}
+
+.action-button:active
+{
+transform: translate(0px,5px);
+-webkit-transform: translate(0px,5px);
+border-bottom: 1px solid;
+}
+
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-7">
+      <div class="panel panel-default">
+      <div class="panel-body">
+
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% include 'Art_app/form-template.html' %}
+            <a href="{% url 'register' %}" class="action-button shadow animate blue">Apply to sell on Site</a>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+
+              <!-- <button type="submit" class="btn btn-success" name="button">Submit</button> -->
+            </div>
+          </div>
+        </form>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block carousel %}
+{% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'Art_app/base.html' %}
+{% block title %}
+  Customer Account
+{% endblock %}
+
+
+{% block style %}
+
+<style>
+
+
+.footer{
+ position: relative;
+ bottom: 0;
+ width: 100%;
+ background-color: #D1C4E9;
+ margin: 0px auto;
+ margin-top: 500px;
+ padding: 20px 0px 20px 0px;
+}
+
+.animate
+{
+transition: all 0.1s;
+-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+position: relative;
+padding: 10px 40px;
+margin: 0px 10px 10px 0px;
+float: left;
+border-radius: 10px;
+font-family: 'Pacifico', cursive;
+font-size: 25px;
+color: #FFF;
+text-decoration: none;
+}
+
+.blue
+{
+background-color: #3498DB;
+border-bottom: 5px solid #2980B9;
+text-shadow: 0px -2px #2980B9;
+}
+
+.red
+{
+background-color: #E74C3C;
+border-bottom: 5px solid #BD3E31;
+text-shadow: 0px -2px #BD3E31;
+}
+
+.action-button:active
+{
+transform: translate(0px,5px);
+-webkit-transform: translate(0px,5px);
+border-bottom: 1px solid;
+}
+
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-7">
+      <div class="panel panel-default">
+      <div class="panel-body">
+<!-- method="post" -->
+<!-- {% url 'Art_app:view' %} -->
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="uname">UserName</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" id="uname" name="username" placeholder="UserName" required><br><br>
+          <!-- <label for="fname">First name:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" id="fname" name="first_name" placeholder="First Name"><br><br>
+          <label for="lname">Last name:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" id="lname" name="last_name" placeholder="last Name"><br><br>-->
+          <label for="email">Email:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="email" id="email" name="email" placeholder="Email"><br><br>
+          <label for="password">Password:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+          <!-- <label for="country">Country:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" id="country" name="country" placeholder="Country"><br><br>
+          <label for="desc">Description:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <textarea id="desc" name="desc" rows="4" cols="50"></textarea><br><br> -->
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-success" name="button">Submit</button>
+            </div>
+          </div>
+          <div class="container">
+          <br>
+              <a href="{% url 'Art_app:coustomerLogin' %}" class="action-button shadow animate red">Existing Aritists,Login Here</a>
+          </div>
+        </form>
+<!-- //coustomer -->
+        <div>
+          {% for message in messages %}
+          <h3>{{message}}</h3>
+          {% endfor %}
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block carousel %}
+{% endblock %}
+
+
+{% endblock %}
